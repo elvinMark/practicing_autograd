@@ -27,7 +27,7 @@ params = [[w1,b1],[w2,b2],...]
 def neural_forward(params,x):
     o = x
     for w,b in params:
-        o = sigmoid(np.dot(o,w) + b)
+        o = tanh(np.dot(o,w) + b)
     return o
 
 # Defining the loss function
@@ -39,8 +39,8 @@ def loss(params,x,y):
 dloss = grad(loss)
 
 # Defining our input and output for the XOR problem
-x = [[0.,0.],[1.,0.],[0.,1.],[1.,1.]]
-y = [[1.,0.],[0.,1.],[0.,1.],[1.,0.]]
+x = np.array([[0.,0.],[1.,0.],[0.,1.],[1.,1.]])
+y = np.array([[1.,0.],[0.,1.],[0.,1.],[1.,0.]])
 
 # Definig the parameters
 w1 = init_params((2,3))
@@ -53,12 +53,10 @@ params = [[w1,b1],[w2,b2]]
 # Defining learning rate
 lr = 0.7
 
-# Training
+# Training ...
 for epoch in range(500):
     l = loss(params,x,y)
-    dparams = dloss(params,x,y)
-    print(dparams)safasdfasfdasfd
-    
+    dparams = dloss(params,x,y)    
     print(f"epoch: {epoch}, loss: {l}")
     for (dw,db),(w,b) in zip(dparams,params):
         w -= lr * dw
